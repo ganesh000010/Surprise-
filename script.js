@@ -212,54 +212,21 @@ document
    MUSIC
 ===================================================== */
 
-const music =
-    document.getElementById("music");
-
-const musicButton =
-    document.getElementById(
-        "musicButton"
-    );
+const music = document.getElementById("music");
+const musicButton = document.getElementById("musicButton");
 
 let musicPlaying = false;
 
-
-musicButton.addEventListener(
-    "click",
-    async () => {
-
-        if (!music.src) {
-
-            alert(
-                "Add music.mp3 to the folder to enable music."
-            );
-
-            return;
-
-        }
-
-        if (!musicPlaying) {
-
-            await music.play();
-
-            musicPlaying = true;
-
-            musicButton.textContent =
-                "🔊";
-
-        } else {
-
-            music.pause();
-
-            musicPlaying = false;
-
-            musicButton.textContent =
-                "♫";
-
-        }
-
-    }
-);
-
+musicButton.addEventListener("click", () => {
+  if (musicPlaying) {
+    music.pause();
+    musicButton.textContent = "♫";
+  } else {
+    music.play();
+    musicButton.textContent = "🔊";
+  }
+  musicPlaying = !musicPlaying;
+});
 
 /* =====================================================
    CANDLE
