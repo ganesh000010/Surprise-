@@ -142,7 +142,7 @@ function animateParticles() {
 
 }
 
-animateParticles();
+
 
 
 /* =====================================================
@@ -605,7 +605,7 @@ function animateFireworks() {
 
 }
 
-animateFireworks();
+
 
 
 /* =====================================================
@@ -810,3 +810,31 @@ document.addEventListener(
 
     }
 );
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach(p => {
+    p.update();
+    p.draw();
+  });
+
+  fireworksParticles.forEach((p, index) => {
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += 0.05;
+    p.life--;
+
+    ctx.globalAlpha = p.life / 100;
+    ctx.fillStyle = p.color;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+    ctx.fill();
+
+    if (p.life <= 0) fireworksParticles.splice(index, 1);
+  });
+
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(animate);
+}
+
+animate();
